@@ -1,4 +1,4 @@
-package path
+package main
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ func filter(in []string, predicate func(string) bool) []string {
 	out := make([]string, 0, cap(in))
 
 	for _, value := range in {
-		if predicate(value) {
+		if !predicate(value) {
 			out = append(out, value)
 		}
 	}
@@ -39,21 +39,20 @@ func removeFromPath(path string, value string) string {
 
 	pathArray := strings.Split(path, ":")
 
-	resultArray := make
+	resultArray := filter(pathArray, compare)
 
-	pathArray = strings.Split(result, ":")
-
-	for _, pathVar = range pathArray {
-
-	}
-
-	// ...
-
-	return result
+	return strings.Join(resultArray, ":")
 }
 
 func main() {
 	path := os.Getenv("PATH")
 
-	fmt.Println(addToPATH("testing..."))
+	testPath := addToPATH(path, "TEST")
+	fmt.Println("first test: ", testPath)
+
+	testPath = removeFromPath(testPath, "TEST")
+	fmt.Println("second test: ", testPath)
+
+	testPath = getPATH(testPath, true)
+	fmt.Println("third test: ", testPath)
 }
