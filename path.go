@@ -10,7 +10,7 @@ func filter(in []string, predicate func(string) bool) []string {
 	out := make([]string, 0, cap(in))
 
 	for _, value := range in {
-		if !predicate(value) {
+		if predicate(value) {
 			out = append(out, value)
 		}
 	}
@@ -32,9 +32,9 @@ func addToPATH(path string, value string) string {
 	return path
 }
 
-func removeFromPath(path string, value string) string {
+func removeFromPATH(path string, value string) string {
 	compare := func(comparable string) bool {
-		return comparable == value
+		return comparable != value
 	}
 
 	pathArray := strings.Split(path, ":")
@@ -50,7 +50,7 @@ func main() {
 	testPath := addToPATH(path, "TEST")
 	fmt.Println("first test: ", testPath)
 
-	testPath = removeFromPath(testPath, "TEST")
+	testPath = removeFromPATH(testPath, "TEST")
 	fmt.Println("second test: ", testPath)
 
 	testPath = getPATH(testPath, true)
