@@ -1,2 +1,2 @@
 # path-utils
-Simple Go path utils
+Simple Go PATH utils
